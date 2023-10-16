@@ -2,7 +2,7 @@ package Brawler;
 
 import java.util.ArrayList;
 
-import javafx.stage.DirectoryChooser;
+import processing.core.PApplet;
 
 public class Brawler {
     final static double SIZE = 0; // Radius of the brawler
@@ -55,8 +55,13 @@ public class Brawler {
         return magazine > 0;
     }
 
-    void main(long tick) {
+    void main(PApplet window, long tick) {
         
+        draw(window);
+    }
+
+    void draw(PApplet window) {
+
     }
 
 }
