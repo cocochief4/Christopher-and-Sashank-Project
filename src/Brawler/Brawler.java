@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import processing.core.PApplet;
 
 public class Brawler {
-    final static double SIZE = 0; // Radius of the brawler
+    final static float SIZE = 100; // Diameter of the brawler
 
     final static int MAX_MAGAZINE = 3;
 
-    int x, y; // Position of the brawler
+    float x, y; // Position of the brawler
 
     int damage; // How much damage each bullet does
 
@@ -22,6 +22,13 @@ public class Brawler {
     int magazine;
 
     double direction; // Where the brawler is aimings
+
+    public Brawler(int health, int damage, int speed, int reloadSpeed) {
+        this.health = health;
+        this.damage = damage;
+        this.speed = speed;
+        this.reloadSpeed = reloadSpeed;
+    }
 
     void updateHealth(int damage) {
         health -= damage;
@@ -46,7 +53,7 @@ public class Brawler {
         }
     }
 
-    void setPosition(int x, int y) {
+    public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -56,12 +63,12 @@ public class Brawler {
     }
 
     void main(PApplet window, long tick) {
-        
+
         draw(window);
     }
 
-    void draw(PApplet window) {
-
+    public void draw(PApplet window) {
+        window.ellipse(x, y, SIZE, SIZE);
     }
 
 }
