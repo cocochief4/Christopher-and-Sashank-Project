@@ -68,6 +68,7 @@ public class Brawler {
     }
 
     public void draw(PApplet window) {
+        window.fill(window.color(255, 0, 0));
         window.ellipse(x, y, SIZE, SIZE);
     }
 
