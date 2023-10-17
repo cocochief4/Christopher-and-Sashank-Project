@@ -2,6 +2,10 @@ package Brawler;
 
 import java.util.ArrayList;
 
+import javax.management.monitor.GaugeMonitor;
+
+import Game.Game;
+
 import processing.core.PApplet;
 
 public class Brawler {
@@ -9,7 +13,7 @@ public class Brawler {
 
     final static int MAX_MAGAZINE = 3;
 
-    final static double TURN_SPEED = 1;
+    final static double TURN_SPEED = 0.1;
 
     float x, y; // Position of the brawler
 
@@ -66,31 +70,31 @@ public class Brawler {
 
 
 
-    public void main(PApplet window, long tick, ArrayList<Bullet> bulletList) {
+    public void main(PApplet window, long tick) {
 
-        if (isKeyPressed("w")) {
+        if (Game.isKeyPressed('w')) {
             y = y+ speed;
         }
-        if (isKeyPressed("a")) {
+        if (Game.isKeyPressed('a')) {
             x = x - speed;
         }
-        if (isKeyPressed("s")) {
+        if (Game.isKeyPressed('s')) {
             y = y - speed;
         }
-        if (isKeyPressed("d")) {
+        if (Game.isKeyPressed('d')) {
             x = x + speed;
         }
 
-        if (isKeyPressed("k")) {
+        if (Game.isKeyPressed('k')) {
             direction = direction + TURN_SPEED;
         }
 
-        if (isKeyPressed("l")) {
+        if (Game.isKeyPressed('l')) {
             direction = direction - TURN_SPEED;
         }
 
 
-//        if (isKeyPressed("TAB") && tick%reloadSpeed == 0) {
+//        if (Game.isKeyPressed('q') && tick%reloadSpeed == 0) {
 //            shoot(bulletList);
 //        }
 
@@ -98,10 +102,21 @@ public class Brawler {
 
         draw(window);
     }
+    void drawBrawler(PApplet window, int r, int g, int b) {
+        window.fill(window.color(r, g, b));
+        window.ellipse(x, y, SIZE, SIZE);
+    }
+
+    void drawSlingshot(PApplet window, int r, int g, int b) {
+        window.fill(window.color(r, g, b));
+        window.ellipse((float) ((0.6*SIZE) * Math.cos(direction) + x), (float) ((0.6*SIZE) * Math.sin(direction) + y), SIZE/3, SIZE/3);
+        window.ellipse((float) ((0.85*SIZE) * Math.cos(direction) + x), (float) ((0.85*SIZE) * Math.sin(direction) + y), SIZE/3, SIZE/3);
+
+    }
 
     public void draw(PApplet window) {
-        window.fill(window.color(255, 0, 0));
-        window.ellipse(x, y, SIZE, SIZE);
+        drawBrawler(window, 255, 0, 0);
+        drawSlingshot(window, 0, 255, 0);
     }
 
 }
