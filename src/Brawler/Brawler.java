@@ -66,7 +66,7 @@ public class Brawler {
 
 
 
-    void main(PApplet window, long tick, ArrayList<Bullet> bulletList) {
+    public void main(PApplet window, long tick, ArrayList<Bullet> bulletList) {
 
         if (isKeyPressed("w")) {
             y = y+ speed;

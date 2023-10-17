@@ -6,6 +6,8 @@ import Brawler.Brawler;
 
 public class Game extends PApplet {
 
+    Brawler brawler;
+
     private HashMap<String, Boolean> keys;
     private long tick;
 
@@ -28,13 +30,31 @@ public class Game extends PApplet {
 
         tick = 0;
 
-        Brawler brawler = new Brawler(10, 2, 3, 3);
+        brawler = new Brawler(10, 2, 3, 3);
         brawler.setPosition(600, 600);
         brawler.draw(this);
     }
 
+    public boolean isKeyPressed(String key) {
+        return keys.get(key);
+    }
+
+    @Override
+    public void keyPressed() {
+        for (String keyPressed : keys.keySet()) {
+            if (keyPressed.equals(key)) keys.put(keyPressed, true);
+        }
+    }
+
+    @Override
+    public void keyReleased() {
+        for (String keyPressed : keys.keySet()) {
+            if (keyPressed.equals(key)) keys.put(keyPressed, false);
+        }
+    }
+
     public void draw() {
-        
+        brawler.main(this, tick, null);
         tick++;
     }
 
