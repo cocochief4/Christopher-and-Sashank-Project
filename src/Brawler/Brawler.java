@@ -9,6 +9,8 @@ public class Brawler {
 
     final static int MAX_MAGAZINE = 3;
 
+    final static double TURN_SPEED = 1;
+
     float x, y; // Position of the brawler
 
     int damage; // How much damage each bullet does
@@ -62,7 +64,37 @@ public class Brawler {
         return magazine > 0;
     }
 
-    void main(PApplet window, long tick) {
+
+
+    void main(PApplet window, long tick, ArrayList<Bullet> bulletList) {
+
+        if (isKeyPressed("w")) {
+            y = y+ speed;
+        }
+        if (isKeyPressed("a")) {
+            x = x - speed;
+        }
+        if (isKeyPressed("s")) {
+            y = y - speed;
+        }
+        if (isKeyPressed("d")) {
+            x = x + speed;
+        }
+
+        if (isKeyPressed("k")) {
+            direction = direction + TURN_SPEED;
+        }
+
+        if (isKeyPressed("l")) {
+            direction = direction - TURN_SPEED;
+        }
+
+
+//        if (isKeyPressed("TAB") && tick%reloadSpeed == 0) {
+//            shoot(bulletList);
+//        }
+
+
 
         draw(window);
     }
