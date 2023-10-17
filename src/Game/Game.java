@@ -59,6 +59,7 @@ public class Game extends PApplet {
     }
 
     public void draw() {
+        clear();
         brawler.main(this, tick);
         tick++;
     }
