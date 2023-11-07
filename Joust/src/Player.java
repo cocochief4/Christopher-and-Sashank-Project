@@ -23,7 +23,7 @@ public class Player {
         } else if (playerNum == 2) {
             color = 700;
             x = 0;
-            y = 400;SSS
+            y = 400;
         }
 
 
