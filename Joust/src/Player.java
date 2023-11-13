@@ -55,13 +55,13 @@ public class Player {
 
         // Check boundaries
         if (y >= 700) {
-            ySpeed = 0;
-            y = 699; // Must be one less or else the condition keeps tripping
+            // ySpeed = 0;
+            y = 101; // Must be one less or else the condition keeps tripping
         }
 
         if (y <= 100) {
-            ySpeed = 0;
-            y = 101;
+        //     ySpeed = 0;
+            y = 699;
         }
 
         // Deal with x-value
@@ -91,7 +91,11 @@ public class Player {
     }
 
     public float getX() {
-        return 0;
+        return x;
+    }
+
+    public float getY() {
+        return y;
     }
 
 

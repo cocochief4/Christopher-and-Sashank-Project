@@ -11,8 +11,8 @@ public class Joust extends PApplet{
     public static final int DEFAULT_HEIGHT = 800;
     public static final int DEFAULT_WIDTH = 800;
 
-    private static final float COLLISION_DISTANCE = 100.0f;
-    private static final int COLLISION_SENS = 10;
+    private static final float COLLISION_DISTANCE = 75.0f;
+    private static final int COLLISION_SENS = 30;
 
     private static boolean hasWon = false;
 
@@ -91,8 +91,8 @@ public class Joust extends PApplet{
      * @return A collision number (1 = p1, 2 = p2, 0 = no win)
      */
     private int collisions() {
-        float x1 = p1.getX(); float y1 = p1.getX();
-        float x2 = p2.getX(); float y2 = p1.getX();
+        float x1 = p1.getX(); float y1 = p1.getY();
+        float x2 = p2.getX(); float y2 = p2.getY();
 
         double dist = Math.sqrt((x1-x2) * (x1-x2) + (y1-y2) * (y1-y2));
 
