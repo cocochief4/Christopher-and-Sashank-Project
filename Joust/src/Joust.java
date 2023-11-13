@@ -1,18 +1,25 @@
 import java.util.HashMap;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Joust extends PApplet{
+
+    // OS Stuff
+    private static final String SPRITE_ROOT = "sprites/";
 
     public static final int DEFAULT_HEIGHT = 800;
     public static final int DEFAULT_WIDTH = 800;
 
     private static final float COLLISION_DISTANCE = 10.0f;
 
-    private static HashMap<Character, Boolean> keys;
+    public static HashMap<Character, Boolean> keys;
 
     private Player p1;
     private Player p2;
+
+    // Sprites - 0 is right, 1 is left
+    public static PImage[] p1Image, p2Image;
 
     @Override
     public void settings() {
@@ -21,6 +28,11 @@ public class Joust extends PApplet{
 
     @Override
     public void setup() {
+
+        // Init images
+        p1Image = new PImage[2]; p2Image = new PImage[2];
+        p1Image[0] = loadImage(SPRITE_ROOT + "p1_right" + ".png"); p1Image[1] = loadImage(SPRITE_ROOT + "p1_left" + ".png");
+        p2Image[0] = loadImage(SPRITE_ROOT + "p2_right" + ".png"); p2Image[1] = loadImage(SPRITE_ROOT + "p2_left" + ".png");
 
         keys = new HashMap<Character, Boolean>();
 
@@ -44,8 +56,9 @@ public class Joust extends PApplet{
 
     @Override
     public void draw() {
-        p1.move();
-        p2.move();
+        clear();
+        p1.move(this);
+        p2.move(this);
 
         // Check if the collision results in a win
         int win = collisions();
@@ -53,13 +66,24 @@ public class Joust extends PApplet{
 
     private void reset() {
         drawMap();
-        p1.reset();
-        p2.reset();
+        p1.reset(this);
+        p2.reset(this);
     }
 
+    /**
+     * Draws the Map, may not be used
+     */
+    private void drawMap() {
+    }
+
+    /**
+     * Checks if someone has won
+     * 
+     * @return A collision number (1 = p1, 2 = p2, 0 = no win)
+     */
     private int collisions() {
-        float x1 = p1.getX(); float y1 = p1.getY();
-        float x2 = p2.getX(); float y2 = p1.getY();
+        float x1 = p1.getX(); float y1 = p1.getX();
+        float x2 = p2.getX(); float y2 = p1.getX();
 
         double dist = Math.sqrt((x1-x2) * (x1-x2) + (y1-y2) * (y1-y2));
 
@@ -76,6 +100,24 @@ public class Joust extends PApplet{
             return 0;
         }
 
+    }
+
+    @Override
+    public void keyPressed() {
+        for (char maybePressed : keys.keySet()) {
+            if (key == maybePressed) {
+                keys.put(maybePressed, true);
+            }
+        }
+    }
+
+    @Override
+    public void keyReleased() {
+        for (char maybeReleased : keys.keySet()) {
+            if (key == maybeReleased) {
+                keys.put(maybeReleased, false);
+            }
+        }
     }
 
     public static void main(String[] args) {
