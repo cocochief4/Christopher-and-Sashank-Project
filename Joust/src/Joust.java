@@ -11,7 +11,12 @@ public class Joust extends PApplet{
     public static final int DEFAULT_HEIGHT = 800;
     public static final int DEFAULT_WIDTH = 800;
 
-    private static final float COLLISION_DISTANCE = 10.0f;
+    private static final float COLLISION_DISTANCE = 100.0f;
+    private static final int COLLISION_SENS = 10;
+
+    private static boolean hasWon = false;
+
+    private static final String IndexOutOfBounds = null;
 
     public static HashMap<Character, Boolean> keys;
 
@@ -56,12 +61,16 @@ public class Joust extends PApplet{
 
     @Override
     public void draw() {
-        clear();
-        p1.move(this);
-        p2.move(this);
+        if (!hasWon) {
+            clear();
+            p1.move(this);
+            p2.move(this);
 
-        // Check if the collision results in a win
-        int win = collisions();
+            // Check if the collision results in a win
+            int win = collisions();
+            if (win == 1) hasWon = true;
+            if (win == 2) hasWon = true;
+        }
     }
 
     private void reset() {
@@ -88,17 +97,17 @@ public class Joust extends PApplet{
         double dist = Math.sqrt((x1-x2) * (x1-x2) + (y1-y2) * (y1-y2));
 
         if (dist < COLLISION_DISTANCE) {
-            if (y1 > y2) {
+            if (y1 > y2 + COLLISION_SENS) {
                 return 1;
             }
             
-            if (y2 > y1) {
+            if (y2 > y1 + COLLISION_SENS) {
                 return 2;
             }
-
-            // No winner
-            return 0;
         }
+
+        // No winner
+        return 0;
 
     }
 

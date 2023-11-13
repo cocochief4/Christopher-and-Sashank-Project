@@ -23,10 +23,10 @@ public class Player {
         this.right = right;
 
         if (playerNum == 1) {
-            x = 700;
+            x = 0;
             y = 400;
         } else if (playerNum == 2) {
-            x = 0;
+            x = 700;
             y = 400;
         }
 
@@ -80,13 +80,13 @@ public class Player {
     public void reset(PApplet app) {
         y = 400;
         if (pNum == 1) {
-            x = 700;
-            currentImage = Joust.p1Image[1];
-            app.image(Joust.p1Image[1], x, y);
-        } else if (pNum == 2) {
             x = 0;
-            currentImage = Joust.p2Image[0];
-            app.image(Joust.p2Image[0], x, y);
+            currentImage = Joust.p1Image[0];
+            app.image(Joust.p1Image[0], x, y);
+        } else if (pNum == 2) {
+            x = 700;
+            currentImage = Joust.p2Image[1];
+            app.image(Joust.p2Image[1], x, y);
         }
     }
 
