@@ -3,7 +3,7 @@ import processing.core.PImage;
 
 public class Player {
 
-    private static final int JUMP_VAL = 15;
+    private static final int JUMP_VAL = 7;
     private static final float GRAVITY_VAL = 0.5f;
     private static final int SPEED = 5;
 
@@ -24,10 +24,10 @@ public class Player {
 
         if (playerNum == 1) {
             x = 100;
-            y = 400;
+            y = (int) (Joust.DEFAULT_HEIGHT/2);
         } else if (playerNum == 2) {
-            x = 700;
-            y = 400;
+            x = Joust.DEFAULT_WIDTH - 100;
+            y = (int) (Joust.DEFAULT_HEIGHT/2);
         }
 
 
@@ -55,23 +55,23 @@ public class Player {
 
         // Check boundaries
         // Bottom
-        if (y >= 700) {
+        if (y >= Joust.DEFAULT_HEIGHT - 100) {
             // ySpeed = 0;
-            y = 699; // Must be one less or else the condition keeps tripping
+            y = Joust.DEFAULT_HEIGHT - 101; // Must be one less or else the condition keeps tripping
         }
 
         // Top
         if (y <= 100) {
         //     ySpeed = 0;
-            y = 699;
+            y = Joust.DEFAULT_HEIGHT;
         }
 
         // Side
-        if (x <= 80) {
-            x = 719;
+        if (x <= 50) {
+            x = Joust.DEFAULT_WIDTH-81;
         }
-        if (x >= 720) {
-            x = 81;
+        if (x >= Joust.DEFAULT_WIDTH-80) {
+            x = 51;
         }
 
         // Deal with x-value
@@ -88,13 +88,13 @@ public class Player {
     }
 
     public void reset(PApplet app) {
-        y = 400;
+        y = (int) (Joust.DEFAULT_HEIGHT/2);
         if (pNum == 1) {
             x = 100;
             currentImage = Joust.p1Image[0];
             app.image(Joust.p1Image[0], x, y);
         } else if (pNum == 2) {
-            x = 700;
+            x = Joust.DEFAULT_WIDTH - 100;
             currentImage = Joust.p2Image[1];
             app.image(Joust.p2Image[1], x, y);
         }

@@ -8,11 +8,11 @@ public class Joust extends PApplet{
     // OS Stuff
     private static final String SPRITE_ROOT = "sprites/";
 
-    public static final int DEFAULT_HEIGHT = 800;
-    public static final int DEFAULT_WIDTH = 800;
+    public static final int DEFAULT_WIDTH = 1600;
+    public static final int DEFAULT_HEIGHT = 1000;
 
-    private static final float COLLISION_DISTANCE = 75.0f;
-    private static final int COLLISION_SENS = 30;
+    private static final float COLLISION_DISTANCE = 50.0f;
+    private static final int COLLISION_SENS = 20;
 
     private static boolean hasWon = false;
 
@@ -28,7 +28,7 @@ public class Joust extends PApplet{
 
     @Override
     public void settings() {
-        size(DEFAULT_HEIGHT, DEFAULT_WIDTH);
+        size(DEFAULT_WIDTH, DEFAULT_HEIGHT);
     }
 
     @Override
