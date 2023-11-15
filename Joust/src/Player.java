@@ -20,7 +20,7 @@ public class Player {
     private static final int SPEED = 5;
 
     // Width, Height
-    private static final int[] SIZE = {16, 16};
+    public static final int[] SIZE = {16, 16};
 
     private int pNum;
     private char up;
@@ -123,7 +123,26 @@ public class Player {
         return y;
     }
 
+    /**
+     * newSize is in {WIDTH, HEIGHT}
+     * 
+     * @param image
+     * @param newSize
+     */
+    private void image (PImage image, int[] newSize, PApplet app) {
+        float wScale = newSize[0] / SIZE[0];
+        float hScale = newSize[1] / SIZE[1];
 
+        app.image(image, x, y, wScale, hScale);        
+    }
+
+    private void image (PImage image, float scale, PApplet app) {
+        app.image(image, x, y, scale*SIZE[0]/16, scale*SIZE[1]/16);
+    }
+
+    private void image(PImage image, PApplet app) {
+        app.image(image, x, y, SIZE[0]/16, SIZE[1]/16);
+    }
 
 
 }

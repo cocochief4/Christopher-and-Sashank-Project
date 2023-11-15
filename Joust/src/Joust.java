@@ -11,12 +11,10 @@ public class Joust extends PApplet{
     public static final int DEFAULT_WIDTH = 1200;
     public static final int DEFAULT_HEIGHT = 700;
 
-    private static final float COLLISION_DISTANCE = 16.0f;
-    private static final int COLLISION_SENS = 8;
+    private static final float COLLISION_DISTANCE = (float) Math.sqrt(Player.SIZE[0] * Player.SIZE[0] + Player.SIZE[1] + Player.SIZE[1]);
+    private static final float COLLISION_SENS = COLLISION_DISTANCE/2;
 
     private static boolean hasWon = false;
-
-    private static final String IndexOutOfBounds = null;
 
     public static HashMap<Character, Boolean> keys;
 
