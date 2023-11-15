@@ -2,10 +2,25 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class Player {
+    
+    /*
+     * Notes:
+     * 
+     * image() is the method that displays the sprite. Params are:
+     * PImage image, x, y, width-scale, height-scale
+     * 
+     * image, x, y are not optional; width-scale, height-scale is optional.
+     * x, y are of the top-left, with x+ going right and y+ going down.
+     * 
+     * sprites are 16 x 16 pixels.
+     */
 
     private static final int JUMP_VAL = 7;
     private static final float GRAVITY_VAL = 0.5f;
     private static final int SPEED = 5;
+
+    // Width, Height
+    private static final int[] SIZE = {16, 16};
 
     private int pNum;
     private char up;
@@ -23,10 +38,10 @@ public class Player {
         this.right = right;
 
         if (playerNum == 1) {
-            x = 100;
+            x = Joust.DEFAULT_WIDTH/4;
             y = (int) (Joust.DEFAULT_HEIGHT/2);
         } else if (playerNum == 2) {
-            x = Joust.DEFAULT_WIDTH - 100;
+            x = Joust.DEFAULT_WIDTH * 3/4 - SIZE[0];
             y = (int) (Joust.DEFAULT_HEIGHT/2);
         }
 
@@ -55,9 +70,9 @@ public class Player {
 
         // Check boundaries
         // Bottom
-        if (y >= Joust.DEFAULT_HEIGHT - 100) {
+        if (y >= Joust.DEFAULT_HEIGHT - SIZE[1] + 1) {
             // ySpeed = 0;
-            y = Joust.DEFAULT_HEIGHT - 101; // Must be one less or else the condition keeps tripping
+            y = Joust.DEFAULT_HEIGHT - SIZE[1]; // Must be one less or else the condition keeps tripping
         }
 
         // Top
