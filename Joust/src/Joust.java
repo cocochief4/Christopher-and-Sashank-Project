@@ -11,7 +11,7 @@ public class Joust extends PApplet{
     public static final int DEFAULT_WIDTH = 1200;
     public static final int DEFAULT_HEIGHT = 700;
 
-    private static final float COLLISION_DISTANCE = (float) Math.sqrt(Player.SIZE[0] * Player.SIZE[0] + Player.SIZE[1] + Player.SIZE[1]);
+    private static final float COLLISION_DISTANCE = (float) (Math.sqrt(Player.SIZE[0] * Player.SIZE[0] + Player.SIZE[1] + Player.SIZE[1])) * 4/6;
     private static final float COLLISION_SENS = COLLISION_DISTANCE/2;
 
     private static boolean hasWon = false;
@@ -24,6 +24,9 @@ public class Joust extends PApplet{
     // Sprites - 0 is right, 1 is left
     public static PImage[] p1Image, p2Image;
 
+    // Terrain blocks
+    public static PImage grassBlock;
+
     @Override
     public void settings() {
         size(DEFAULT_WIDTH, DEFAULT_HEIGHT);
@@ -32,10 +35,15 @@ public class Joust extends PApplet{
     @Override
     public void setup() {
 
+        // Drawing Options
+        imageMode(CENTER);
+
         // Init images
         p1Image = new PImage[2]; p2Image = new PImage[2];
         p1Image[0] = loadImage(SPRITE_ROOT + "p1_right" + ".png"); p1Image[1] = loadImage(SPRITE_ROOT + "p1_left" + ".png");
         p2Image[0] = loadImage(SPRITE_ROOT + "p2_right" + ".png"); p2Image[1] = loadImage(SPRITE_ROOT + "p2_left" + ".png");
+
+        grassBlock = loadImage(SPRITE_ROOT + "grassBlock.png");
 
         keys = new HashMap<Character, Boolean>();
 

@@ -6,11 +6,13 @@ public class Player {
     /*
      * Notes:
      * 
+     * (0, 0) of the entire game board is the top left
+     * 
      * image() is the method that displays the sprite. Params are:
      * PImage image, x, y, width-scale, height-scale
      * 
-     * image, x, y are not optional; width-scale, height-scale is optional.
-     * x, y are of the top-left, with x+ going right and y+ going down.
+     * image, x, y are not optional; width-scale, height-scale is optional. Scaling is the pixel amount to scale to, not a ratio.
+     * x, y are of the center, with x+ going right and y+ going down.
      * 
      * sprites are 16 x 16 pixels.
      */
@@ -20,7 +22,7 @@ public class Player {
     private static final int SPEED = 5;
 
     // Width, Height
-    public static final int[] SIZE = {16, 16};
+    public static final float[] SIZE = {32, 32};
 
     private int pNum;
     private char up;
@@ -70,24 +72,27 @@ public class Player {
 
         // Check boundaries
         // Bottom
-        if (y >= Joust.DEFAULT_HEIGHT - SIZE[1] + 1) {
+        if (y >= Joust.DEFAULT_HEIGHT - SIZE[1]/2 + 1) {
             // ySpeed = 0;
-            y = Joust.DEFAULT_HEIGHT - SIZE[1]; // Must be one less or else the condition keeps tripping
+            y = Joust.DEFAULT_HEIGHT - SIZE[1]/2; // Must be one less or else the condition keeps tripping
         }
 
         // Top
-        if (y <= 100) {
+        if (y <= -1) {
         //     ySpeed = 0;
             y = Joust.DEFAULT_HEIGHT;
         }
 
         // Side
-        if (x <= 50) {
-            x = Joust.DEFAULT_WIDTH-81;
+        if (x <= -1) {
+            x = 1199;
         }
-        if (x >= Joust.DEFAULT_WIDTH-80) {
-            x = 51;
+        if (x >= 1200) {
+            x = 0;
         }
+
+        // Check block collisions
+        
 
         // Deal with x-value
         if (Joust.keys.get(left)) {
@@ -99,19 +104,19 @@ public class Player {
         }
 
         // Display
-        app.image(currentImage, x, y);
+        image(currentImage, app);
     }
 
     public void reset(PApplet app) {
         y = (int) (Joust.DEFAULT_HEIGHT/2);
         if (pNum == 1) {
-            x = 100;
+            x = Joust.DEFAULT_WIDTH/6;
             currentImage = Joust.p1Image[0];
-            app.image(Joust.p1Image[0], x, y);
+            image(Joust.p1Image[0], app);
         } else if (pNum == 2) {
-            x = Joust.DEFAULT_WIDTH - 100;
+            x = Joust.DEFAULT_WIDTH*5/6;
             currentImage = Joust.p2Image[1];
-            app.image(Joust.p2Image[1], x, y);
+            image(Joust.p2Image[1], app);
         }
     }
 
@@ -121,6 +126,18 @@ public class Player {
 
     public float getY() {
         return y;
+    }
+
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    public float[] getSize() {
+        return SIZE;
     }
 
     /**
@@ -137,12 +154,15 @@ public class Player {
     }
 
     private void image (PImage image, float scale, PApplet app) {
-        app.image(image, x, y, scale*SIZE[0]/16, scale*SIZE[1]/16);
+        app.image(image, x, y, scale*SIZE[0], scale*SIZE[1]);
     }
 
     private void image(PImage image, PApplet app) {
-        app.image(image, x, y, SIZE[0]/16, SIZE[1]/16);
+        // app.image(image, x, y, SIZE[0]/16, SIZE[1]/16);
+        app.image(image, x, y, SIZE[0], SIZE[1]);
     }
+
+    // Note: image scaling is based on number of pixels, not a scale of original image.
 
 
 }
