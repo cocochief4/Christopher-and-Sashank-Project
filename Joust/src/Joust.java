@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import processing.core.PApplet;
@@ -8,8 +9,8 @@ public class Joust extends PApplet{
     // OS Stuff
     private static final String SPRITE_ROOT = "sprites/";
 
-    public static final int DEFAULT_WIDTH = 1200;
-    public static final int DEFAULT_HEIGHT = 700;
+    public static final int DEFAULT_WIDTH = 1800;
+    public static final int DEFAULT_HEIGHT = 1000;
 
     private static final float COLLISION_DISTANCE = (float) (Math.sqrt(Player.SIZE[0] * Player.SIZE[0] + Player.SIZE[1] + Player.SIZE[1])) * 4/6;
     private static final float COLLISION_SENS = COLLISION_DISTANCE/2;
@@ -21,10 +22,12 @@ public class Joust extends PApplet{
     private Player p1;
     private Player p2;
 
+    private ArrayList<Block> terrain;
+
     // Sprites - 0 is right, 1 is left
     public static PImage[] p1Image, p2Image;
 
-    // Terrain blocks
+    // Terrain sprites
     public static PImage grassBlock;
 
     @Override
@@ -60,6 +63,8 @@ public class Joust extends PApplet{
         p1 = new Player(1, 'w', 'a', 'd');
         p2 = new Player(2, 'i', 'j', 'l');
 
+        terrain = Map.init();
+
         // Reset the game
         reset();
 
@@ -69,8 +74,13 @@ public class Joust extends PApplet{
     public void draw() {
         if (!hasWon) {
             clear();
-            p1.move(this);
-            p2.move(this);
+            // Render map first
+            for (Block block : terrain) {
+                block.render(this);
+            }
+
+            p1.move(this, terrain);
+            p2.move(this, terrain);
 
             // Check if the collision results in a win
             int win = collisions();
@@ -89,6 +99,9 @@ public class Joust extends PApplet{
      * Draws the Map, may not be used
      */
     private void drawMap() {
+        for (Block block : terrain) {
+            block.render(this);
+        }
     }
 
     /**

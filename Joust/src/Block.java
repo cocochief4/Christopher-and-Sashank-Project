@@ -4,7 +4,7 @@ import processing.core.PImage;
 public class Block {
 
     // Width, Height
-    private static final float[] SIZE = {32, 32};
+    public static float[] SIZE = {32, 32};
 
     private PImage sprite;
     private float x, y;
@@ -32,23 +32,16 @@ public class Block {
         float pRight = p.getX() + p.getSize()[0]/2;
         float pLeft = p.getX() - p.getSize()[0]/2;
 
-        // Check y bounds
-        // y is between
-        if (!(pTop > bottom || pBottom < top)) {
-            if (pRight > left && pRight < right) { // Player coming in from the left of the block
-                p.setX(p.getX() - (pRight - left));
-            } else if (pLeft > left && pLeft < right) { // Player coming in from the right of the block
-                p.setX(p.getX() + (right-pLeft));
-            }
-        }
-
-        // x is between
-        if (!(pRight < left || pLeft > right)) {
-            if (pBottom < bottom && pBottom > top) { // Player coming in from the top of the block
-                p.setY(p.getY() - (pBottom - top));
-            } else if (pTop < bottom && pTop > top) { // Player coming in from the bottom of the block
-                p.setY(p.getY() + (bottom-pTop));
-            }
+        if (pBottom > top && pBottom < bottom && (p.getX() > left && p.getX() < right)) { // Top boundary
+            p.setY(p.getY() - (pBottom - top) - 1);
+            p.setYSpeed(0);
+        } else if (pTop < bottom && pTop > top && (p.getX() > left && p.getX() < right)) { // Bottom boundary
+            p.setY(p.getY() + (bottom - pTop));
+            p.setYSpeed(0);
+        } else if (pRight > left && pRight < right && (p.getY() > top && p.getY() < bottom)) { // Coming in from left to right
+            p.setX(p.getX() - (pRight - left));
+        } else if (pLeft < right && pLeft > left && (p.getY() > top && p.getY() < bottom)) { // Coming in from left to right
+            p.setX(p.getX() + (right - pLeft));
         }
     }
 

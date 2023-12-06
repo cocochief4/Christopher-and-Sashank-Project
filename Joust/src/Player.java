@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -22,7 +24,7 @@ public class Player {
     private static final int SPEED = 5;
 
     // Width, Height
-    public static final float[] SIZE = {32, 32};
+    public static final float[] SIZE = {48, 48};
 
     private int pNum;
     private char up;
@@ -53,7 +55,7 @@ public class Player {
     /**
      * Main method, call to move Player
      */
-    public void move(PApplet app) {
+    public void move(PApplet app, ArrayList<Block> blockArr) {
 
         PImage[] localImages;
 
@@ -85,14 +87,16 @@ public class Player {
 
         // Side
         if (x <= -1) {
-            x = 1199;
+            x = Joust.DEFAULT_WIDTH-1;
         }
-        if (x >= 1200) {
+        if (x >= Joust.DEFAULT_WIDTH) {
             x = 0;
         }
 
         // Check block collisions
-        
+        for (Block block : blockArr) {
+            block.blockCollision(this);
+        }
 
         // Deal with x-value
         if (Joust.keys.get(left)) {
@@ -134,6 +138,10 @@ public class Player {
 
     public void setY(float y) {
         this.y = y;
+    }
+
+    public void setYSpeed(float speed) {
+        this.ySpeed = speed;
     }
 
     public float[] getSize() {
