@@ -21,10 +21,11 @@ public class Player {
 
     private static final int JUMP_VAL = 7;
     private static final float GRAVITY_VAL = 0.5f;
-    private static final int SPEED = 5;
 
     // Width, Height
     public static final float[] SIZE = {40, 40};
+
+    private static int SPEED = 5;
 
     private int pNum;
     private char up;
@@ -32,6 +33,7 @@ public class Player {
     private char right;
     private float x,y;
     private float ySpeed;
+    private float xSpeed;
 
     private PImage currentImage;
 
@@ -146,6 +148,7 @@ public class Player {
     public void setYSpeed(float speed) {
         this.ySpeed = speed;
     }
+    public void setXSpeed(float speed) {this.xSpeed = speed;}
 
     public float[] getSize() {
         return SIZE;
