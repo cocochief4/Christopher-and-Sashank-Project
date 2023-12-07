@@ -98,6 +98,11 @@ public class Joust extends PApplet{
                 block.render(this);
             }
 
+            // Render powerups
+            for (Powerup p : Powerup.powerupArr) {
+                p.render(this);
+            }
+
             p1.move(this, terrain);
             p2.move(this, terrain);
 
@@ -164,7 +169,7 @@ public class Joust extends PApplet{
 
     public void PowerUpCaller (int ticks) {
 
-            if (ticks % 1000 == 0) {
+            if (ticks % 30 == 0) {
                 new Powerup(terrain);
             }
 
