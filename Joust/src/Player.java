@@ -19,7 +19,7 @@ public class Player {
      * sprites are 16 x 16 pixels.
      */
 
-    private static final int JUMP_VAL = 10;
+    private static final int JUMP_VAL = 13;
     private static final float GRAVITY_VAL = 0.5f;
     private static final int SPEED = 5;
 
