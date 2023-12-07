@@ -49,4 +49,12 @@ public class Block {
         app.image(sprite, x, y, SIZE[0], SIZE[1]);
     }
 
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
 }
