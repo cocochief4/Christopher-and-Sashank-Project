@@ -30,6 +30,7 @@ public class Joust extends PApplet{
     // Terrain sprites
     public static PImage grassBlock;
 
+    public static PImage P1Win, P2Win;
     @Override
     public void settings() {
         size(DEFAULT_WIDTH, DEFAULT_HEIGHT);
@@ -47,6 +48,10 @@ public class Joust extends PApplet{
         p2Image[0] = loadImage(SPRITE_ROOT + "p2_right" + ".png"); p2Image[1] = loadImage(SPRITE_ROOT + "p2_left" + ".png");
 
         grassBlock = loadImage(SPRITE_ROOT + "grassBlock.png");
+        P1Win = loadImage(SPRITE_ROOT + "P1Win.png");
+        P2Win = loadImage(SPRITE_ROOT + "P2Win.png");
+
+
 
         keys = new HashMap<Character, Boolean>();
 
@@ -86,8 +91,17 @@ public class Joust extends PApplet{
 
             // Check if the collision results in a win
             int win = collisions();
-            if (win == 1) hasWon = true;
-            if (win == 2) hasWon = true;
+
+            if (win == 1) {
+                hasWon = true;
+                image(P2Win, DEFAULT_WIDTH/2, DEFAULT_HEIGHT/2);
+
+            }
+            if (win == 2) {
+                hasWon = true;
+                image(P1Win, DEFAULT_WIDTH/2, DEFAULT_HEIGHT/2);
+            }
+
         } else if (keys.get('r') == true) {
             reset();
             hasWon = false;
