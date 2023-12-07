@@ -19,12 +19,12 @@ public class Player {
      * sprites are 16 x 16 pixels.
      */
 
-    private static final int JUMP_VAL = 7;
+    private static final int JUMP_VAL = 10;
     private static final float GRAVITY_VAL = 0.5f;
     private static final int SPEED = 5;
 
     // Width, Height
-    public static final float[] SIZE = {48, 48};
+    public static final float[] SIZE = {64, 64};
 
     private int pNum;
     private char up;
@@ -70,6 +70,8 @@ public class Player {
             // Reset use smaller values (0 - 3)
             // Addition can use bigger (5 - 20)
             ySpeed = -1 * JUMP_VAL;
+            y -= 1;
+            Joust.keys.put(up, false);
         }
 
         // Check boundaries
@@ -113,6 +115,7 @@ public class Player {
 
     public void reset(PApplet app) {
         y = (int) (Joust.DEFAULT_HEIGHT/2);
+        ySpeed = 0;
         if (pNum == 1) {
             x = Joust.DEFAULT_WIDTH/6;
             currentImage = Joust.p1Image[0];

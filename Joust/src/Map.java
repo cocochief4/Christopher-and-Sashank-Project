@@ -13,7 +13,7 @@ public class Map {
 	 * @return
 	 */
 	public static ArrayList<Block> init() {
-		String[] mapStrArr = readFile(MAP_ROOT + "map0.csv").split("\n");
+		String[] mapStrArr = readFile(MAP_ROOT + "map3.csv").split("\n");
 
 		int height = mapStrArr.length;
 

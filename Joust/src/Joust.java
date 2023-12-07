@@ -60,6 +60,8 @@ public class Joust extends PApplet{
         keys.put('j', false); // left
         keys.put('l', false); // right
 
+        keys.put('r', false); // reset
+
         p1 = new Player(1, 'w', 'a', 'd');
         p2 = new Player(2, 'i', 'j', 'l');
 
@@ -86,7 +88,11 @@ public class Joust extends PApplet{
             int win = collisions();
             if (win == 1) hasWon = true;
             if (win == 2) hasWon = true;
+        } else if (keys.get('r') == true) {
+            reset();
+            hasWon = false;
         }
+
     }
 
     private void reset() {
