@@ -48,4 +48,8 @@ public class Powerup {
         return false;
     }
 
+    public static void reset() {
+        powerupArr.clear();
+    }
+
 }

@@ -6,13 +6,26 @@ public class Block {
     // Width, Height
     public static float[] SIZE = {32, 32};
 
+    public static enum Type {GRASS, HONEY};
+
     private PImage sprite;
     private float x, y;
+    private Type type;
 
     public Block (PImage sprite, float x, float y) {
         this.sprite = sprite;
         this.x = x;
         this.y = y;
+
+        type = Type.GRASS;
+    }
+
+    public Block (PImage sprite, float x, float y, Type type) {
+        this.sprite = sprite;
+        this.x = x;
+        this.y = y;
+
+        this.type = type;
     }
 
     public void render(PApplet app) {
@@ -35,6 +48,10 @@ public class Block {
         if (pBottom > top && pBottom < bottom && (p.getX() > left && p.getX() < right)) { // Top boundary
             p.setY(p.getY() - (pBottom - top) - 1);
             p.setYSpeed(0);
+            if (type == Type.HONEY) {
+                p.setXSpeed(Player.DEFAULT_SPEED/4);
+                System.out.println("slow");
+            }
         } else if (pTop < bottom && pTop > top && (p.getX() > left && p.getX() < right)) { // Bottom boundary
             p.setY(p.getY() + (bottom - pTop));
             p.setYSpeed(0);
@@ -42,6 +59,10 @@ public class Block {
             p.setX(p.getX() - (pRight - left));
         } else if (pLeft < right && pLeft > left && (p.getY() > top && p.getY() < bottom)) { // Coming in from left to right
             p.setX(p.getX() + (right - pLeft));
+        } else {
+            if (type == Type.HONEY) {
+                p.setXSpeed(Player.DEFAULT_SPEED);
+            }
         }
     }
 

@@ -21,11 +21,12 @@ public class Player {
 
     private static final int JUMP_VAL = 7;
     private static final float GRAVITY_VAL = 0.5f;
+    public static final float DEFAULT_SPEED = 7;
 
     // Width, Height
     public static final float[] SIZE = {40, 40};
 
-    private static int SPEED = 5;
+    private float speed;
 
     private int pNum;
     private char up;
@@ -34,6 +35,9 @@ public class Player {
     private float x,y;
     private float ySpeed;
     private float xSpeed;
+
+    private boolean isGhost;
+    private int ghostTick;
 
     private PImage currentImage;
 
@@ -50,6 +54,11 @@ public class Player {
             x = Joust.DEFAULT_WIDTH * 3/4 - SIZE[0];
             y = (int) (Joust.DEFAULT_HEIGHT/2);
         }
+
+        isGhost = false;
+        ghostTick = 0;
+
+        speed = DEFAULT_SPEED;
 
 
     }
@@ -98,16 +107,33 @@ public class Player {
         }
 
         // Check block collisions
-        for (Block block : blockArr) {
-            block.blockCollision(this);
+        if (!isGhost) {
+            for (Block block : blockArr) {
+                block.blockCollision(this);
+            }
+        } else {
+            ghostTick++;
+            if (ghostTick > 180) {
+                ghostTick = 0;
+                isGhost = false;
+            }
+        }
+
+        // Check powerup collisions
+        for (int i = 0; i < Powerup.powerupArr.size(); i++) {
+            if (Powerup.powerupArr.get(i).hasCollided(this)) {
+                Powerup.powerupArr.remove(i);
+                isGhost = true;
+                ghostTick = 0;
+            }
         }
 
         // Deal with x-value
         if (Joust.keys.get(left)) {
-            x -= SPEED;
+            x -= speed;
             currentImage = localImages[1];
         } else if (Joust.keys.get(right)) {
-            x += SPEED;
+            x += speed;
             currentImage = localImages[0];
         }
 
@@ -117,6 +143,8 @@ public class Player {
 
     public void reset(PApplet app) {
         y = (int) (Joust.DEFAULT_HEIGHT/2);
+        ghostTick = 0;
+        isGhost = false;
         ySpeed = 0;
         if (pNum == 1) {
             x = Joust.DEFAULT_WIDTH/6;
@@ -148,7 +176,7 @@ public class Player {
     public void setYSpeed(float speed) {
         this.ySpeed = speed;
     }
-    public void setXSpeed(float speed) {this.xSpeed = speed;}
+    public void setXSpeed(float newSpeed) {this.speed = newSpeed;}
 
     public float[] getSize() {
         return SIZE;

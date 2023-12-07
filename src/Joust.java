@@ -29,6 +29,7 @@ public class Joust extends PApplet{
 
     // Terrain sprites
     public static PImage grassBlock;
+    public static PImage honeyBlock;
 
     // Powerup sprites
     public static PImage ghost;
@@ -54,6 +55,8 @@ public class Joust extends PApplet{
         p2Image[0] = loadImage(SPRITE_ROOT + "p2_right" + ".png"); p2Image[1] = loadImage(SPRITE_ROOT + "p2_left" + ".png");
 
         grassBlock = loadImage(SPRITE_ROOT + "grassBlock.png");
+        honeyBlock = loadImage(SPRITE_ROOT + "honeyBlock.png");
+
         P1Win = loadImage(SPRITE_ROOT + "P1Win.png");
         P2Win = loadImage(SPRITE_ROOT + "P2Win.png");
 
@@ -130,6 +133,7 @@ public class Joust extends PApplet{
         drawMap();
         p1.reset(this);
         p2.reset(this);
+        Powerup.reset();
     }
 
     /**
@@ -169,7 +173,7 @@ public class Joust extends PApplet{
 
     public void PowerUpCaller (int ticks) {
 
-            if (ticks % 30 == 0) {
+            if (ticks % 250 == 0) {
                 new Powerup(terrain);
             }
 

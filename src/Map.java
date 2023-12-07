@@ -13,7 +13,7 @@ public class Map {
 	 * @return
 	 */
 	public static ArrayList<Block> init() {
-		String[] mapStrArr = readFile(MAP_ROOT + "map3.csv").split("\n");
+		String[] mapStrArr = readFile(MAP_ROOT + "map4.csv").split("\n");
 
 		int height = mapStrArr.length;
 
@@ -36,6 +36,10 @@ public class Map {
 			for (int w = 0; w < width; w++) {
 				if (line[w].equals("g")) {
 					Block b = new Block(Joust.grassBlock, w*unitWidth + unitWidth/2, h*unitHeight + unitHeight/2);
+					map[h][w] = b;
+					blockList.add(b);
+				} else if (line[w].equals("h")) {
+					Block b = new Block(Joust.honeyBlock, w*unitWidth + unitWidth/2, h*unitHeight + unitHeight/2, Block.Type.HONEY);
 					map[h][w] = b;
 					blockList.add(b);
 				}
