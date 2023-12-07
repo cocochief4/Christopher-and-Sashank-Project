@@ -34,6 +34,9 @@ public class Joust extends PApplet{
     public static PImage ghost;
 
     public static PImage P1Win, P2Win;
+
+    public static int ticks;
+
     @Override
     public void settings() {
         size(DEFAULT_WIDTH, DEFAULT_HEIGHT);
@@ -84,7 +87,11 @@ public class Joust extends PApplet{
 
     @Override
     public void draw() {
+
         if (!hasWon) {
+            ticks++;
+            PowerUpCaller(ticks);
+
             clear();
             // Render map first
             for (Block block : terrain) {
@@ -155,6 +162,14 @@ public class Joust extends PApplet{
 
     }
 
+    public void PowerUpCaller (int ticks) {
+
+            if (ticks % 1000 == 0) {
+                new Powerup(terrain);
+            }
+
+        }
+
     @Override
     public void keyPressed() {
         for (char maybePressed : keys.keySet()) {
@@ -175,5 +190,6 @@ public class Joust extends PApplet{
 
     public static void main(String[] args) {
         PApplet.main("Joust");
+
     }
 }
