@@ -38,6 +38,7 @@ public class Player {
 
     private boolean isGhost;
     private int ghostTick;
+    private Block honeyBlock;
 
     private PImage currentImage;
 
@@ -57,6 +58,7 @@ public class Player {
 
         isGhost = false;
         ghostTick = 0;
+        honeyBlock = null;
 
         speed = DEFAULT_SPEED;
 
@@ -108,8 +110,15 @@ public class Player {
 
         // Check block collisions
         if (!isGhost) {
+            if (honeyBlock != null) {
+                if (!honeyBlock.blockCollision(this)) {
+                    honeyBlock = null;
+                }
+            }
             for (Block block : blockArr) {
-                block.blockCollision(this);
+                if (block.blockCollision(this) && honeyBlock == null) {
+                    honeyBlock = block;
+                }
             }
         } else {
             ghostTick++;
@@ -129,6 +138,12 @@ public class Player {
         }
 
         // Deal with x-value
+        if (honeyBlock != null) {
+            speed = DEFAULT_SPEED/4;
+        }
+        else {
+            speed = DEFAULT_SPEED;
+        }
         if (Joust.keys.get(left)) {
             x -= speed;
             currentImage = localImages[1];
@@ -145,6 +160,7 @@ public class Player {
         y = (int) (Joust.DEFAULT_HEIGHT/2);
         ghostTick = 0;
         isGhost = false;
+        honeyBlock = null;
         ySpeed = 0;
         if (pNum == 1) {
             x = Joust.DEFAULT_WIDTH/6;
@@ -176,7 +192,9 @@ public class Player {
     public void setYSpeed(float speed) {
         this.ySpeed = speed;
     }
-    public void setXSpeed(float newSpeed) {this.speed = newSpeed;}
+    public void setXSpeed(float newSpeed) {
+        this.speed = newSpeed;
+    }
 
     public float[] getSize() {
         return SIZE;

@@ -32,7 +32,7 @@ public class Block {
         image(app);
     }
 
-    public void blockCollision(Player p) {
+    public boolean blockCollision(Player p) {
         // Label bounds
         float bottom = y + SIZE[1]/2;
         float top = y - SIZE[1]/2;
@@ -46,11 +46,10 @@ public class Block {
         float pLeft = p.getX() - p.getSize()[0]/2;
 
         if (pBottom > top && pBottom < bottom && (p.getX() > left && p.getX() < right)) { // Top boundary
-            p.setY(p.getY() - (pBottom - top) - 1);
+            p.setY(p.getY() - (pBottom - top));
             p.setYSpeed(0);
-            if (type == Type.HONEY) {
-                p.setXSpeed(Player.DEFAULT_SPEED/4);
-                System.out.println("slow");
+            if (type == Type.HONEY && pBottom + 2 > top && pBottom < bottom && (p.getX() > left && p.getX() < right)) {
+                return true;
             }
         } else if (pTop < bottom && pTop > top && (p.getX() > left && p.getX() < right)) { // Bottom boundary
             p.setY(p.getY() + (bottom - pTop));
@@ -59,11 +58,8 @@ public class Block {
             p.setX(p.getX() - (pRight - left));
         } else if (pLeft < right && pLeft > left && (p.getY() > top && p.getY() < bottom)) { // Coming in from left to right
             p.setX(p.getX() + (right - pLeft));
-        } else {
-            if (type == Type.HONEY) {
-                p.setXSpeed(Player.DEFAULT_SPEED);
-            }
         }
+        return false;
     }
 
     private void image(PApplet app) {
