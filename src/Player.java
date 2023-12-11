@@ -19,12 +19,12 @@ public class Player {
      * sprites are 16 x 16 pixels.
      */
 
-    private static final int JUMP_VAL = 7;
+    private static final int JUMP_VAL = 8;
     private static final float GRAVITY_VAL = 0.5f;
-    public static final float DEFAULT_SPEED = 7;
+    public static final float DEFAULT_SPEED = 5;
 
     // Width, Height
-    public static final float[] SIZE = {40, 40};
+    public static float[] SIZE = {32, 32};
 
     private float speed;
 
@@ -121,6 +121,7 @@ public class Player {
                 }
             }
         } else {
+            app.tint(255, 150);
             ghostTick++;
             if (ghostTick > 180) {
                 ghostTick = 0;
@@ -154,6 +155,7 @@ public class Player {
 
         // Display
         image(currentImage, app);
+        app.tint(255, 255);
     }
 
     public void reset(PApplet app) {

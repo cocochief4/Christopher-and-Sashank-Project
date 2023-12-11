@@ -12,6 +12,8 @@ public class Joust extends PApplet{
     public static final int DEFAULT_WIDTH = 1500;
     public static final int DEFAULT_HEIGHT = 700;
 
+    public static final int SPAWNRATE = 250;
+
     private static final float COLLISION_DISTANCE = (float) (Math.sqrt(Player.SIZE[0] * Player.SIZE[0] + Player.SIZE[1] + Player.SIZE[1])) * 4/6;
     private static final float COLLISION_SENS = COLLISION_DISTANCE/2;
 
@@ -173,7 +175,7 @@ public class Joust extends PApplet{
 
     public void PowerUpCaller (int ticks) {
 
-            if (ticks % 250 == 0) {
+            if (ticks % SPAWNRATE == 0) {
                 new Powerup(terrain);
             }
 
