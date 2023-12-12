@@ -85,6 +85,8 @@ public class Player {
             ySpeed = -1 * JUMP_VAL;
             y -= 1;
             Joust.keys.put(up, false);
+
+            Joust.flap.play();
         }
 
         // Check boundaries
@@ -135,6 +137,7 @@ public class Player {
                 Powerup.powerupArr.remove(i);
                 isGhost = true;
                 ghostTick = 0;
+                Joust.invis.play();
             }
         }
 

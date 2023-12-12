@@ -3,11 +3,13 @@ import java.util.HashMap;
 
 import processing.core.PApplet;
 import processing.core.PImage;
+import processing.sound.*;
 
 public class Joust extends PApplet{
 
     // OS Stuff
     private static final String SPRITE_ROOT = "sprites/";
+    private static final String SOUND_ROOT = "sound/";
 
     public static final int DEFAULT_WIDTH = 1500;
     public static final int DEFAULT_HEIGHT = 700;
@@ -40,6 +42,9 @@ public class Joust extends PApplet{
 
     public static int ticks;
 
+    public static SoundFile flap;
+    public static SoundFile invis;
+
     @Override
     public void settings() {
         size(DEFAULT_WIDTH, DEFAULT_HEIGHT);
@@ -62,7 +67,8 @@ public class Joust extends PApplet{
         P1Win = loadImage(SPRITE_ROOT + "P1Win.png");
         P2Win = loadImage(SPRITE_ROOT + "P2Win.png");
 
-
+        flap = new SoundFile(this, SOUND_ROOT + "flap.mp3");
+        invis = new SoundFile(this, SOUND_ROOT + "invis.mp3");
 
         ghost = loadImage(SPRITE_ROOT + "ghost.png");
 
