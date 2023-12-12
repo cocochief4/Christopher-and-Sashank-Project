@@ -19,9 +19,9 @@ public class Player {
      * sprites are 16 x 16 pixels.
      */
 
-    private static final int JUMP_VAL = 8;
-    private static final float GRAVITY_VAL = 0.5f;
-    public static final float DEFAULT_SPEED = 5;
+    private static final int JUMP_VAL = 10;
+    private static final float GRAVITY_VAL = 0.9f;
+    public static final float DEFAULT_SPEED = 7;
 
     // Width, Height
     public static float[] SIZE = {32, 32};
@@ -76,6 +76,7 @@ public class Player {
         else localImages = Joust.p2Image;
 
         // Deal with y-value
+        // Check if player is jumping or falling
         ySpeed += GRAVITY_VAL;
         y += ySpeed;
         if (Joust.keys.get(up)) {
@@ -89,7 +90,8 @@ public class Player {
             Joust.flap.play();
         }
 
-        // Check boundaries
+        // Check Window Boundaries
+        // Make sure player does not go off the map
         // Bottom
         if (y >= Joust.DEFAULT_HEIGHT - SIZE[1]/2 + 1) {
             // ySpeed = 0;
@@ -111,6 +113,7 @@ public class Player {
         }
 
         // Check block collisions
+        // Make sure player doesn't go through blocks
         if (!isGhost) {
             if (honeyBlock != null) {
                 if (!honeyBlock.blockCollision(this)) {
@@ -132,6 +135,7 @@ public class Player {
         }
 
         // Check powerup collisions
+        // Check if player picked up any powerups
         for (int i = 0; i < Powerup.powerupArr.size(); i++) {
             if (Powerup.powerupArr.get(i).hasCollided(this)) {
                 Powerup.powerupArr.remove(i);
@@ -141,7 +145,8 @@ public class Player {
             }
         }
 
-        // Deal with x-value
+        // Deal with x-value (moving side to side)
+        // Check if player wants to move left or right
         if (honeyBlock != null) {
             speed = DEFAULT_SPEED/4;
         }
